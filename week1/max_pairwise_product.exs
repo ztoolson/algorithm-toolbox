@@ -22,6 +22,8 @@
         Pairwise.max_product
       end) == "36\n"
     end
+    
+    # TODO stress test with 10^ 5 numbers
   end
 
 defmodule Pairwise do
