@@ -37,8 +37,8 @@ defmodule Pairwise do
     end)
 
     # for now just sort the list and multiply the two largest numbers
-    sorted_list = Enum.sort(int_list)
-    max_pairwise_product = Enum.at(sorted_list, number_of_inputs - 1) * Enum.at(sorted_list, number_of_inputs - 2)
+    sorted_list = Enum.sort(int_list, fn(x,y) -> x > y end)
+    max_pairwise_product = List.first(sorted_list) * Enum.at(sorted_list, 1)
 
     IO.puts max_pairwise_product
   end
