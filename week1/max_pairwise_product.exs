@@ -26,6 +26,23 @@
     # TODO stress test with 10^5 numbers
   end
 
+
+# Problem:
+# 	Given a sequence of non-negative integers a0,…,an−1, find the
+# 	maximum pairwise product, that is, the largest integer that can be
+# 	obtained by multiplying two different elements from the sequence
+# 
+# Input Format:
+# 	The first line of the input contains an integer n. The
+# 	next line contains n non-negative integers a0,...,an−1 (separated by
+# 	spaces).
+# 
+# Constraints:
+# 	2 ≤ n ≤ 2 * 10^5
+# 	0 ≤ a0,...,an−1 ≤ 10^5
+# 
+# Output format:
+# 	Output a single number — the maximum pairwise product.
 defmodule Pairwise do
   def max_product do
     {_number_of_inputs, _} = (IO.gets("") |> Integer.parse)
@@ -49,10 +66,9 @@ defmodule Pairwise do
     {x, _} = Integer.parse(input_head)
     updated_result = cond do
       x >= current_max ->
-        temp_result = List.replace_at(result, 1, Enum.at(result, 0))
-        List.replace_at(temp_result, 0, x)
+        [x, current_max]
       x >= second_current_max ->
-        List.replace_at(result, 1, x)
+        [current_max, x]
       true -> result
     end
 
