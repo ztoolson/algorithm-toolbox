@@ -17,13 +17,35 @@
       end) == "140\n"
     end
 
-    test "duplicate largest numbers" do
+    test "duplicate numbers" do
       assert capture_io("5\n4 6 2 6 1", fn ->
         Pairwise.max_product
       end) == "36\n"
     end
-    
-    # TODO stress test with 10^5 numbers
+
+    test "large numbers" do
+      assert capture_io("2\n100000 90000", fn ->
+        Pairwise.max_product
+      end) == "9000000000\n"
+    end
+
+    test "lots of zeros" do
+      one_hundred_thousand_zeros = Enum.to_list(1..100_000) |> Enum.map(fn x -> x * 0 end)
+      input = Enum.join(one_hundred_thousand_zeros, " ")
+
+      assert capture_io("100000\n#{input}", fn ->
+        Pairwise.max_product
+      end) == "0\n"
+    end
+
+    test "sequence 1..100_000" do
+      one_hundred_thousand_sequence = Enum.to_list(1..100_000)
+      input = Enum.join(one_hundred_thousand_sequence, " ")
+
+      assert capture_io("100000\n#{input}", fn ->
+        Pairwise.max_product
+      end) == "9999900000\n"
+    end
   end
 
 
