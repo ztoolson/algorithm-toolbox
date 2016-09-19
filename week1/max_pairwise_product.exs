@@ -23,25 +23,39 @@
       end) == "36\n"
     end
     
-    # TODO stress test with 10^ 5 numbers
+    # TODO stress test with 10^5 numbers
   end
 
 defmodule Pairwise do
   def max_product do
-    {number_of_inputs, _} = (IO.gets("") |> Integer.parse)
+    {_number_of_inputs, _} = (IO.gets("") |> Integer.parse)
     input = IO.gets ""
     input_list = String.split(input, " ")
 
-    # TODO: find the two largets numbers while iterating over the list
-    int_list = Enum.map(input_list, fn number ->
-      {a, _} = Integer.parse(number)
-      a
-    end)
+    [largest_num, second_largest_num] = Pairwise.get_largest_pair(input_list)
 
-    # for now just sort the list and multiply the two largest numbers
-    sorted_list = Enum.sort(int_list, fn(x,y) -> x > y end)
-    max_pairwise_product = List.first(sorted_list) * Enum.at(sorted_list, 1)
+    max_pairwise_product = largest_num * second_largest_num
 
     IO.puts max_pairwise_product
+  end
+
+  def get_largest_pair(input_list) do
+    dummy_max_result = [-1, -1]
+    _get_largest_pair(input_list, dummy_max_result)
+  end
+
+  defp _get_largest_pair([], max_result), do: max_result
+  defp _get_largest_pair([input_head | input_tail], result = [current_max, second_current_max]) do
+    {x, _} = Integer.parse(input_head)
+    updated_result = cond do
+      x >= current_max ->
+        temp_result = List.replace_at(result, 1, Enum.at(result, 0))
+        List.replace_at(temp_result, 0, x)
+      x >= second_current_max ->
+        List.replace_at(result, 1, x)
+      true -> result
+    end
+
+    _get_largest_pair(input_tail, updated_result)
   end
 end
