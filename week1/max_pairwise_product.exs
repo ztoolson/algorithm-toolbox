@@ -1,52 +1,52 @@
-  ExUnit.start
-  
-  defmodule PairwiseTest do
-    use ExUnit.Case, async: true
-  
-    import ExUnit.CaptureIO
-  
-    test "sorted input" do
-      assert capture_io("3\n1 2 3", fn ->
-        Pairwise.max_product
-      end) == "6\n"
-    end
+ExUnit.start
 
-    test "random input" do
-      assert capture_io("10\n7 5 14 2 8 8 10 1 2 3", fn ->
-        Pairwise.max_product
-      end) == "140\n"
-    end
+defmodule PairwiseTest do
+  use ExUnit.Case, async: true
 
-    test "duplicate numbers" do
-      assert capture_io("5\n4 6 2 6 1", fn ->
-        Pairwise.max_product
-      end) == "36\n"
-    end
+  import ExUnit.CaptureIO
 
-    test "large numbers" do
-      assert capture_io("2\n100000 90000", fn ->
-        Pairwise.max_product
-      end) == "9000000000\n"
-    end
-
-    test "lots of zeros" do
-      two_hundred_thousand_zeros = Enum.to_list(1..200_000) |> Enum.map(fn x -> x * 0 end)
-      input = Enum.join(two_hundred_thousand_zeros, " ")
-
-      assert capture_io("200000\n#{input}", fn ->
-        Pairwise.max_product
-      end) == "0\n"
-    end
-
-    test "sequence 1..200_000" do
-      two_hundred_thousand_sequence = Enum.to_list(1..200_000)
-      input = Enum.join(two_hundred_thousand_sequence, " ")
-
-      assert capture_io("200000\n#{input}", fn ->
-        Pairwise.max_product
-      end) == "39999800000\n"
-    end
+  test "sorted input" do
+    assert capture_io("3\n1 2 3", fn ->
+      Pairwise.max_product
+    end) == "6\n"
   end
+
+  test "random input" do
+    assert capture_io("10\n7 5 14 2 8 8 10 1 2 3", fn ->
+      Pairwise.max_product
+    end) == "140\n"
+  end
+
+  test "duplicate numbers" do
+    assert capture_io("5\n4 6 2 6 1", fn ->
+      Pairwise.max_product
+    end) == "36\n"
+  end
+
+  test "large numbers" do
+    assert capture_io("2\n100000 90000", fn ->
+      Pairwise.max_product
+    end) == "9000000000\n"
+  end
+
+  test "lots of zeros" do
+    two_hundred_thousand_zeros = Enum.to_list(1..200_000) |> Enum.map(fn x -> x * 0 end)
+    input = Enum.join(two_hundred_thousand_zeros, " ")
+
+    assert capture_io("200000\n#{input}", fn ->
+      Pairwise.max_product
+    end) == "0\n"
+  end
+
+  test "sequence 1..200_000" do
+    two_hundred_thousand_sequence = Enum.to_list(1..200_000)
+    input = Enum.join(two_hundred_thousand_sequence, " ")
+
+    assert capture_io("200000\n#{input}", fn ->
+      Pairwise.max_product
+    end) == "39999800000\n"
+  end
+end
 
 
 # Problem:
@@ -91,7 +91,7 @@ defmodule Pairwise do
         [x, current_max]
       x >= second_current_max ->
         [current_max, x]
-      true -> result
+        true -> result
     end
 
     _get_largest_pair(input_tail, updated_result)
