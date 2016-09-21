@@ -6,6 +6,10 @@ defmodule GCDTest do
     assert GCD.compute_euclidean(10, 4) == 2
   end
 
+  test "euclidean gcd(10, 7)" do
+    assert GCD.compute_euclidean(10, 7) == 1
+  end
+
   test "euclidean gcd(18, 35)" do
     assert GCD.compute_euclidean(18, 35) == 1
   end
