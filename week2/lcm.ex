@@ -1,3 +1,5 @@
+Code.require_file "gcd.ex", __DIR__
+
 ExUnit.start(timeout: 2000) # 2 seconds
 
 defmodule LeastCommonMultipleTest do
@@ -21,21 +23,11 @@ end
 #   1 ≤ a, b ≤ 2*10^9.
 # Output Format:
 #   Output the least common multiple of a and b.
+#
+# Take advantage of the property LCM(a, b) * GCD(a, b) = a * b
 defmodule LeastCommonMultiple do
   def compute(a, b) do
-    # make sure a is the largest argument
-    if a >= b do
-      _lcm(a, b, a*2)
-    else
-      _lcm(b, a, b*2)
-    end
-  end
-
-  defp _lcm(a, b, current_multiple) do
-    if rem(current_multiple, a) == 0 && rem(current_multiple, b) == 0 do
-      current_multiple
-    else
-      _lcm(a, b, current_multiple + a)
-    end
+    gcd = GCD.compute_euclidean(a,b)
+    (a * b) / gcd
   end
 end
